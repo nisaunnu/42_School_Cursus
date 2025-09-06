@@ -1,6 +1,5 @@
 ## Exam Rank 06
 
-- [Exam Rank 06](#exam-rank-06)
 - [Fonksiyon Açıklamaları](#fonksiyon-açıklamaları)
 	- [`write`](#write)
 	- [`exit`](#exit)
