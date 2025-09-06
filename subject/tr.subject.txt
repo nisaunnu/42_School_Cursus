@@ -1,0 +1,43 @@
+Atama adı : mini_serv
+Beklenen dosyalar : mini_serv.c
+İzin verilen işlevler: write, close, select, socket, accept, listen, send, recv, bind, strstr, malloc, realloc, free, calloc, bzero, atoi, sprintf, strlen, exit, strcpy, strcat, memset
+--------------------------------------------------------------------------------
+
+İstemcinin 127.0.0.1 üzerindeki belirli bir porta bağlanmasını dinleyecek ve istemcilerin birbirleriyle konuşmasına izin verecek bir program yazın
+
+Bu program ilk argüman olarak bağlanılacak portu alacaktır
+Herhangi bir argüman verilmezse, stderr'de "Yanlış argüman sayısı" ve ardından bir \n yazmalı ve durum 1 ile çıkmalıdır
+Program bağlantıyı kabul etmeye başlamadan önce bir Sistem Çağrısı bir hata döndürürse, stderr'de "Ölümcül hata" ve ardından bir \n yazmalı ve durum 1 ile çıkmalıdır
+Bellek ayıramazsanız, stderr'de "Ölümcül hata" ve ardından bir \n yazmalı ve durum 1 ile çıkmalıdır
+
+Programınız bloklama yapmamalı, ancak istemci tembel olabilir ve mesajınızı okumazlarsa bağlantılarını KESMEMELİSİNİZ...
+
+Programınız #define preproc içermemelidir
+Programınız sadece 127.0.0.1 adresini dinlemelidir
+Alacağınız fd, select çağrılmadan önce 'recv' veya 'send' bloklanacak şekilde ayarlanmış olacaktır, ancak aksi takdirde bloklanmayacaktır.
+
+Bir istemci sunucuya bağlandığında:
+- istemciye bir kimlik verilecektir. ilk istemci 0 kimliğini alacak ve her yeni istemci son istemci kimliğini + 1 alacaktır
+- d bu sayı ile değiştirilecektir
+- sunucuya bağlanan tüm istemcilere bir mesaj gönderilir: "sunucu: istemci %d az önce geldi\n"
+
+istemciler programınıza mesaj gönderebilmelidir.
+- mesaj yalnızca yazdırılabilir karakterler olacaktır, kontrol etmeye gerek yoktur
+- tek bir mesaj birden fazla \n içerebilir
+- Sunucu bir mesaj aldığında, mesajı diğer tüm istemcilere "istemci %d: " her satırdan önce!
+
+Bir istemci sunucuyla bağlantısını kestiğinde:
+- sunucuya bağlanmış olan tüm istemcilere bir mesaj gönderilir: "sunucu: istemci %d az önce ayrıldı\n"
+
+Bellek veya fd sızıntıları yasaktır
+
+
+Size yardımcı olması için, bir sunucunun başlangıcını ve belki bazı yararlı işlevleri içeren main.c dosyasını bulacaksınız. (Bu dosyada yasaklanmış fonksiyonları kullanmaya veya nihai programınızda olmaması gereken şeyleri yazmaya dikkat edin)
+
+Uyarı Test cihazımız mesajları olabildiğince hızlı göndermenizi bekliyor. Gereksiz tamponlama yapmayın.
+
+Değerlendirme normalden biraz daha uzun olabilir...
+
+İpucu: programınızı test etmek için nc kullanabilirsiniz
+İpucu: programınızı test etmek için nc kullanmalısınız
+İpucu: Test etmek için fcntl(fd, F_SETFL, O_NONBLOCK) kullanabilirsiniz ancak select kullanın ve ASLA EAGAIN (man 2 send) kontrol etmeyin
